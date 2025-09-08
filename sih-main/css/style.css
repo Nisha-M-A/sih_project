@@ -1,0 +1,23 @@
+body{
+    background-color: aqua;
+    text-align: center;
+}
+
+div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+button{
+    height: 50px;
+    width: 200px;
+    border-radius:3px ;
+}
+
+button:hover{
+    background-color: black;
+    color: white;
+}

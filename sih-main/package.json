@@ -1,0 +1,18 @@
+{
+  "name": "sih",
+  "version": "1.0.0",
+  "main": "route.js",
+  "scripts": {
+    "devStart":"nodemon route.js"
+  },
+  "keywords": [],
+  "author": "Sahaj & Nisha",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.0",
+    "nodemon": "^3.1.10"
+  }
+}
