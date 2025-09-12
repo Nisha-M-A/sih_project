@@ -3,19 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>HOME PAGE</title>
 </head>
 <body>
-
-    <h1>DEMO</h1>
-
-    <div>
+    <header>
+        <div class="header_left">
+            <h2>Hello, </h2>
+            </div>
+            <div class="header_right">
+                <button id="toggle">mode</button>
+            </div>
+    <h1>demo</h1>
+    </header>
+<main class="home_container">
+    <div class="button_row1">
         <form method="get" action="/take_attendance">
             <button type="submit">TAKE ATTENDANCE</button>
         </form>
         <form method="get" action="/live_attendance">
             <button type="submit">LIVE ATTENDANCE</button>
+        </div class="button_row1">
         </form>
         <form method="get" action="/suggestions">
             <button type="submit">SUGGESTIONS</button>
@@ -23,6 +34,7 @@
         <form method="get" action="/daily_routine">
             <button type="submit">DAILY ROUTINE</button>
         </form>
-    </div>
+        </div>
+</main>
 </body>
 </html>

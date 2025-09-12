@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+    <h2>Sign Up</h2>
+    <form action="/signup" method="POST" class="auth-form">
+        <input type="text" name="username" placeholder="Choose a Username" required>
+        <input type="email" name="email" placeholder="Enter Email" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <button type="submit">Create Account</button>
+    </form>
+
+    <p>Already have an account? <a href="/views/login.ejs">Login here</a></p>
+</body>
+</html>
