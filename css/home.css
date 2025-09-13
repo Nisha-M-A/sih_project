@@ -38,11 +38,11 @@
     padding: 10px 20px;
 }
 
-.logo {
-    font-size: 1.4rem;
-    font-weight: bold;
-}
-
+.nav-left {
+    height:40px;
+    display: flex;
+    align-items: center;
+    gap: 15px;}
 .nav-right {
     display: flex;
     align-items: center;
@@ -91,14 +91,12 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1;
 }
-
 .dropdown-content a {
     color: black;
     padding: 8px 12px;
     display: block;
     text-decoration: none;
 }
-
 .dropdown-content a:hover {
     background: #f2f2f2;
 }
