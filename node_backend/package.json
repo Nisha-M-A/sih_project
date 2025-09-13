@@ -1,0 +1,28 @@
+{
+  "name": "sih_project",
+  "version": "1.0.0",
+  "main": "route.js",
+  "scripts": {
+    "start":"node route.js",
+    "devStart":"nodemon route.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nisha-M-A/sih_project.git"
+  },
+  "keywords": [],
+  "author": "Sahaj & Nisha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nisha-M-A/sih_project/issues"
+  },
+  "homepage": "https://github.com/Nisha-M-A/sih_project#readme",
+  "description": "",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.1",
+    "multer": "^2.0.2",
+    "nodemon": "^3.1.10"
+  }
+}
