@@ -33,9 +33,22 @@ app.get("/suggestions/survey",(req,res)=>{
     res.render("suggestions_tasks.ejs")
 })
 
+app.get("/suggestions/survey/submitted",(req,res)=>{
+    res.render("counsellor.ejs")
+})
+
 app.get("/daily_routine",(req,res)=>{
     res.render("daily_routine.ejs")
 })
+
+app.get("/time_table",(req,res)=>{
+    res.render("time_table.ejs")
+})
+
+app.get("/tasks",(req,res)=>{
+    res.render("tasks.ejs")
+})
+
 
 app.get("/face_recognition",(req,res)=>{
     res.render("face_recognition.ejs")
@@ -43,6 +56,10 @@ app.get("/face_recognition",(req,res)=>{
 
 app.get("/face_recognition/recognition_successful", (req, res) => {
     res.render("recognition_successful.ejs");
+});
+
+app.get("/table_created", (req, res) => {
+    res.render("time_table_submitted.ejs");
 });
 
 app.listen(port, () => {

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personalized To-Do List</title>
+<style>
+:root {
+  --bg:#f4f7fb; --card:#fff; --accent:#0b63d8; --muted:#6b7280;
+  --radius:12px; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+body {
+  margin:0; background:var(--bg); padding:20px; color:#0b1220;
+}
+
+.container {
+  max-width:800px; margin:0 auto;
+}
+
+.card {
+  background:var(--card); border-radius:var(--radius);
+  padding:24px; box-shadow:0 8px 22px rgba(9,30,66,0.06);
+}
+
+h1 { margin-top:0; color:var(--accent); }
+ul { list-style:none; padding:0; }
+li { 
+  padding:10px; 
+  border-radius:10px; 
+  background:#f8fbff; 
+  margin-bottom:8px; 
+  display:grid; 
+  grid-template-columns: 1fr auto; /* text grows, buttons aligned right */
+  align-items:center; /* vertical alignment */
+  gap:10px; /* space between text and buttons */
+  border:1px solid rgba(11,99,216,0.06); 
+}
+
+li.completed { text-decoration:line-through; opacity:0.6; }
+
+button { 
+  border:none; 
+  border-radius:var(--radius); 
+  cursor:pointer; 
+  font-weight:600; 
+  transition:0.2s; 
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Bigger tick and cancel buttons with spacing */
+button.complete, button.delete { 
+  padding:10px 14px;   
+  font-size:16px;      
+}
+
+li div { display:flex; gap:8px; } /* ensures buttons have consistent spacing */
+
+button.complete { background:var(--accent); color:#fff; }
+button.delete { background:#f87171; color:#fff; }
+
+input[type="text"] { padding:8px 10px; border-radius:var(--radius); border:1px solid #ccc; width:70%; margin-right:10px; }
+.actions { display:flex; margin-top:12px; gap:10px; }
+.meta { font-size:13px; color:var(--muted); margin-bottom:12px; }
+
+.home-btn {
+  text-align: left; /* Aligns button to the left */
+  margin-bottom: 16px; /* Space below button */
+}
+
+.home-btn button {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 600;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.home-btn button:hover {
+  background: #094ea1; /* Slightly darker on hover */
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="home-btn">
+    <form method="get" action="/">
+      <button>HOME PAGE</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h1>Your Personalized To-Do List</h1>
+    <p class="meta">Tasks are automatically loaded from your survey recommendations. You can also add your own tasks.</p>
+    
+    <ul id="todoList"></ul>
+    
+    <div class="actions">
+      <input type="text" id="newTaskInput" placeholder="Add a new task...">
+      <button id="addTaskBtn">Add</button>
+      <button id="clearCompletedBtn">Clear</button>
+    </div>
+
+    <div style="margin-top:12px;">
+      <label for="jsonFile">Or upload your survey :</label>
+      <input type="file" id="jsonFile" accept=".json">
+    </div>
+  </div>
+</div>
+
+<script>
+// Utility to create a task li
+function createTaskItem(taskTitle, taskDesc) {
+  const li = document.createElement('li');
+  const span = document.createElement('span');
+  span.innerHTML = `<strong>${taskTitle}</strong>${taskDesc ? ': ' + taskDesc : ''}`;
+  li.appendChild(span);
+
+  const buttonsDiv = document.createElement('div');
+  const completeBtn = document.createElement('button');
+  completeBtn.className = 'complete';
+  completeBtn.textContent = '✔';
+  completeBtn.addEventListener('click', () => li.classList.toggle('completed'));
+  buttonsDiv.appendChild(completeBtn);
+
+  const delBtn = document.createElement('button');
+  delBtn.className = 'delete';
+  delBtn.textContent = '✖';
+  delBtn.addEventListener('click', () => li.remove());
+  buttonsDiv.appendChild(delBtn);
+
+  li.appendChild(buttonsDiv);
+  return li;
+}
+
+// Load tasks from survey JSON object
+function loadTasksFromJSON(json) {
+  const todoList = document.getElementById('todoList');
+  if (json.recommendations && Array.isArray(json.recommendations)) {
+    json.recommendations.forEach(task => {
+      const li = createTaskItem(task.title, task.desc);
+      todoList.appendChild(li);
+    });
+  }
+}
+
+// Add new manual task
+document.getElementById('addTaskBtn').addEventListener('click', () => {
+  const input = document.getElementById('newTaskInput');
+  if (!input.value.trim()) return;
+  const li = createTaskItem(input.value, '');
+  document.getElementById('todoList').appendChild(li);
+  input.value = '';
+});
+
+// Clear all completed tasks
+document.getElementById('clearCompletedBtn').addEventListener('click', () => {
+  document.querySelectorAll('#todoList li.completed').forEach(li => li.remove());
+});
+
+// Handle JSON file upload
+document.getElementById('jsonFile').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const json = JSON.parse(ev.target.result);
+      loadTasksFromJSON(json);
+    } catch(err) {
+      alert('Invalid JSON file');
+    }
+  };
+  reader.readAsText(file);
+});
+
+// Optionally: auto-load from localStorage if survey saved there
+if(localStorage.getItem('surveyJSON')) {
+  try {
+    const savedJSON = JSON.parse(localStorage.getItem('surveyJSON'));
+    loadTasksFromJSON(savedJSON);
+  } catch(e){ console.error(e); }
+}
+</script>
+
+</body>
+</html>

@@ -337,13 +337,16 @@
         actions.style.marginTop = '8px';
 
         const copyBtn = document.createElement('button');
-        copyBtn.textContent = 'Copy tasks';
+        // copyBtn.style.display = 'none';
+        copyBtn.textContent = 'Submit';
         copyBtn.addEventListener('click', () => {
-          const text = list.map((l,i) => `${i+1}. ${l.title} — ${l.desc}`).join('\\n\\n');
-          navigator.clipboard.writeText(text).then(() => alert('Tasks copied to clipboard'), () => alert('Could not copy'));
+          // const text = list.map((l,i) => `${i+1}. ${l.title} — ${l.desc}`).join('\\n\\n');
+          // navigator.clipboard.writeText(text).then(() => alert('Tasks copied to clipboard'), () => alert('Could not copy'));
+          window.location.href = "http://localhost:8080/suggestions/survey/submitted";
         });
 
         const dlBtn = document.createElement('button');
+        // dlBtn.style.display = 'none';
         dlBtn.textContent = 'Download JSON';
         dlBtn.className = 'ghost';
         dlBtn.style.border = '1px solid rgba(11,99,216,0.12)'; // keep ghost look
@@ -366,10 +369,10 @@
         wrapper.appendChild(actions);
 
         // Show JSON block of the payload
-        const pre = document.createElement('pre');
-        const payload = { responses: readAnswers(), recommendations: list };
-        pre.textContent = JSON.stringify(payload, null, 2);
-        wrapper.appendChild(pre);
+        // const pre = document.createElement('pre');
+        // const payload = { responses: readAnswers(), recommendations: list };
+        // pre.textContent = JSON.stringify(payload, null, 2);
+        // wrapper.appendChild(pre);
 
         recDiv.appendChild(wrapper);
       }
@@ -400,6 +403,7 @@
 
       // Make sure keyboard-accessible label-clicks checked (no JS needed) - done via native inputs
     })();
+
   </script>
 </body>
 </html>
