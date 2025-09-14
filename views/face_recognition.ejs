@@ -95,7 +95,6 @@
     const resultDiv = document.getElementById('result');
     const capture = document.getElementById('captureButton');
 
-    // Start camera
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         video.srcObject = stream;
