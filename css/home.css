@@ -22,6 +22,10 @@
     font: bolder;
     font-size: 1.2rem;
 }
+.button_row1 button{
+    margin-left:50px;
+    margin-top:50px;
+}
 .button_row1{
     display: flex;
     justify-content: center;
@@ -48,19 +52,12 @@
     align-items: center;
     gap: 15px;
 }
-
-#toggle {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
 .notifications {
     position: relative;
     cursor: pointer;
+    padding-right:20px;
+    font-size:20px;
 }
-
 .notifications .badge {
     position: absolute;
     top: -5px;
@@ -70,8 +67,61 @@
     font-size: 0.7rem;
     border-radius: 50%;
     padding: 2px 5px;
+    margin-top:2px;
+    margin-right:21px;
+}
+main{
+    flex:1;
+}
+/* Notifications dropdown */
+/* .notifications {
+    position: relative;
+    cursor: pointer;
+    padding-right: 20px;
+    font-size: 20px;
+}
+*/
+/* .notifications .badge {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: red;
+    color: white;
+    font-size: 0.7rem;
+    border-radius: 50%;
+    padding: 2px 5px;
+    margin-top: 2px;
+    margin-right: 21px;
+}  */
+/* Hidden by default */
+.noti-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 35px;
+    background: white;
+    color: black;
+    width: 250px;
+    border-radius: 6px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    padding: 10px;
+    text-align: left;
+    font-size: 0.9rem;
+}
+.noti-dropdown p {
+    margin: 5px 0;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
 }
 
+.noti-dropdown p:last-child {
+    border-bottom: none;
+}
+.notifications:hover .noti-dropdown {
+    display: block;
+}
+/* --------------------- */
 .profile-dropdown {
     position: relative;
     display: inline-block;
@@ -80,22 +130,41 @@
 .profile-pic {
     border-radius: 50%;
     cursor: pointer;
+    padding-right:10px;
 }
-
+.profile-dropdown i {
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 20px;
+    padding-right:10px;
+}
 .dropdown-content {
     display: none;
     position: absolute;
+    padding-top:7.9px;
     right: 0;
     background-color: white;
-    min-width: 120px;
+    min-width: 150px;
+    min-height:120px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    /* margin-top:7px; */
+}
+.dropdown-content::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent white transparent;
 }
 .dropdown-content a {
     color: black;
-    padding: 8px 12px;
+    padding: 20px 12px;
     display: block;
     text-decoration: none;
+    
 }
 .dropdown-content a:hover {
     background: #f2f2f2;
@@ -107,9 +176,26 @@
     background: #e6f0ff;
     padding: 10px;
     display: flex;
+    overflow:hidden;
+    white-space: nowrap;
     justify-content: space-around;
     border-bottom: 1px solid #ccc;
     font-size: 0.95rem;
+    position: relative;
+}
+.info-ribbon p{
+    display:inline-block;
+    padding-right:50px;
+    animation:scroll-left 15s linear infinite;
+}
+@keyframes scroll-left {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
 }
 body{
     font-family: Arial, Helvetica, sans-serif;
@@ -122,7 +208,9 @@ body{
 }
 .button_row1 form{
     flex: 0 1 200px;
-    min-width: 150px;
+    min-width: 300px;
+    /* min-height: 500px; */
+
 }
 .home div{
     display: flex;
@@ -151,14 +239,16 @@ button{
     flex-wrap: wrap;
     /* padding:2px; */
     align-items: center;
+    height:100px; 
+    /* change the above */
 }
-#toggle{
+/* #toggle{
     height:35px;
     width: 120px;
     font-size: 0.9rem;
-}
+} */
 button:hover{
-    background-color: black;
+    background-color: #003366;
     transform: translateY(-2px);
     color: white;
 }
@@ -167,8 +257,8 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
+    /* bottom:0;*/
 }
-
 .footer-links a {
     margin: 0 10px;
     color: #ddd;

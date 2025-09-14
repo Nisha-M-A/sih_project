@@ -15,10 +15,13 @@
             <img src="../image/logo.png" alt="LOGO" class="logo">
         </div>
         <div class="nav-right">
-            <button id="toggle">Mode</button>
+            <!-- <button id="toggle">Mode</button> -->
             <div class="notifications">
                 <i class="fas fa-bell"></i>
-                <span class="badge">3</span>
+                <span class="badge">1</span>
+                <div class="noti-dropdown">
+                    <p><strong>Class Update:</strong>Class at 11:30 AM has been cancelled</p>
+            </div>
             </div>
             <div class="profile-dropdown">
             <i class="fa-solid fa-user"></i>
@@ -33,6 +36,7 @@
         <section class="info-ribbon">
             <p><strong>Next Class:</strong> Data Structures at 10:30 AM</p>
             <p><strong>Announcements:</strong> Workshop on AI tomorrow</p>
+            <p><strong>Total Classes Attended Today:</strong> 3/5</p>
         </section>
 <main class="home_container">
     <div class="button_row1">
@@ -41,8 +45,9 @@
         </form>
         <form method="get" action="/live_attendance">
             <button type="submit">LIVE ATTENDANCE</button>
-        </div class="button_row1">
         </form>
+    </div>
+    <div class="button_row1">
         <form method="get" action="/suggestions">
             <button type="submit">PRESONALIZED TASKS</button>
         </form>
@@ -60,4 +65,13 @@
         </div>
     </footer>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const notifications = document.querySelector(".notifications");
+        const badge = document.querySelector(".notifications .badge");
+        notifications.addEventListener("mouseenter", () => {
+            badge.style.display = "none";
+        });
+    });
+</script>
 </html>
