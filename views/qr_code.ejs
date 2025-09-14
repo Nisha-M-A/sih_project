@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random QR Code (Expires in 10s)</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<style>
+  :root {
+    --bg: #f4f7fb;
+    --card: #fff;
+    --accent: #0b63d8;
+    --muted: #555;
+  }
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    display: flex; justify-content: center; align-items: center; height: 100vh;
+  }
+  .card {
+    background-color: var(--card); padding: 30px 40px;
+    border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center; max-width: 350px; width: 100%;
+  }
+  h1 { margin-top:0; color: var(--accent); font-size:1.8em; }
+  canvas { margin: 20px 0; border:1px solid #ccc; border-radius:10px; background-color:#fff; }
+  #timer { font-size:1.1em; color: var(--muted); margin-bottom:15px; }
+  button {
+    background-color: var(--accent); color:#fff; border:none; padding:10px 20px;
+    border-radius:8px; cursor:pointer; font-size:1em; transition:0.3s; margin:5px 0; width:100%;
+  }
+  button:hover { background-color:#094bb5; }
+
+  .home-btn {
+  text-align: left; /* Aligns button to the left */
+  margin-bottom: 16px; /* Space below button */
+}
+
+.home-btn button {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 600;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.home-btn button:hover {
+  background: #094ea1; /* Slightly darker on hover */
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+    <form method="get" action="/">
+      <button>HOME PAGE</button>
+    </form>
+  <h1>QR Code</h1>
+  <canvas id="qr" width="200" height="200"></canvas>
+  <div id="timer"></div>
+  <button onclick="generateQRCode()">Generate New QR</button>
+  <button onclick="displayOnSmartBoard()">Display on Smart Board</button>
+</div>
+
+<script>
+let countdownInterval;
+let currentQRData = '';
+
+function generateRandomString(length=10){
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for(let i=0;i<length;i++){ result += chars.charAt(Math.floor(Math.random()*chars.length)); }
+  return result;
+}
+
+function generateQRCode(){
+  const qrCanvas = document.getElementById('qr');
+  const timerDiv = document.getElementById('timer');
+  clearInterval(countdownInterval);
+
+  currentQRData = generateRandomString();
+  QRCode.toCanvas(qrCanvas, currentQRData, {width:200}, function(err){ if(err) console.error(err); });
+
+  let timeLeft = 10;
+  timerDiv.textContent = `Expires in ${timeLeft} seconds`;
+
+  countdownInterval = setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){
+      clearInterval(countdownInterval);
+      const ctx = qrCanvas.getContext('2d');
+      ctx.clearRect(0,0,qrCanvas.width,qrCanvas.height);
+      timerDiv.textContent='QR Code expired';
+    } else { timerDiv.textContent = `Expires in ${timeLeft} seconds`; }
+  },1000);
+}
+
+function displayOnSmartBoard(){
+  if(!currentQRData){ alert('No QR code to display!'); return; }
+
+  const qrWindow = window.open('', '_blank', 'width=300,height=350');
+  qrWindow.document.title = 'Smart Board QR';
+
+  // Add content dynamically
+  const h2 = qrWindow.document.createElement('h2');
+  h2.style.textAlign = 'center';
+  h2.textContent = 'Smart Board QR';
+  qrWindow.document.body.appendChild(h2);
+
+  const canvas = qrWindow.document.createElement('canvas');
+  canvas.width = 250; canvas.height = 250;
+  canvas.style.display = 'block';
+  canvas.style.margin = '20px auto';
+  qrWindow.document.body.appendChild(canvas);
+
+  // Generate QR on the canvas
+  QRCode.toCanvas(canvas, currentQRData, {width:250}, function(err){ if(err) console.error(err); });
+}
+
+generateQRCode();
+</script>
+</body>
+</html>
