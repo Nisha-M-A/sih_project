@@ -8,7 +8,7 @@ app.set("view engine", "ejs")
 app.use(express.urlencoded({ extended: true }))
 app.use("/css",express.static(path.join(__dirname, "css")))
 app.use("/js",express.static(path.join(__dirname, "js")))
-
+app.use('/image', express.static('image'));
 app.get("/", (req, res) => {
     res.render("home_page.ejs")
 })
@@ -16,11 +16,9 @@ app.get("/", (req, res) => {
 app.get("/take_attendance",(req,res)=>{
     res.render("take_attendance.ejs")
 })
-
 app.get("/live_attendance",(req,res)=>{
     res.render("live_attendance.ejs")
 })
-
 app.get("/suggestions",(req,res)=>{
     res.render("suggestions.ejs")
 })
