@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Task Table</title>
+    <title>Teacher Time Table</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -79,7 +79,7 @@
 <body>
 
 <div class="card">
-    <h2>Teacher Task Table</h2>
+    <h2>Time Table</h2>
     <table id="taskTable">
         <thead>
             <tr>
@@ -145,17 +145,6 @@
     }
 
     function submitTasks() {
-        // const data = [];
-        // const rows = tableBody.querySelectorAll("tr");
-        // rows.forEach(row => {
-        //     const rowData = [];
-        //     row.querySelectorAll("td").forEach(cell => {
-        //         rowData.push(cell.textContent.trim());
-        //     });
-        //     data.push(rowData);
-        // });
-        // console.log("Submitted Tasks:", data);
-        // alert("Tasks submitted! Check console for data.");
         window.location.href = "http://localhost:8080/table_created";
     }
 </script>

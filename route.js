@@ -54,6 +54,10 @@ app.get("/time_table",(req,res)=>{
     res.render("time_table.ejs")
 })
 
+app.get("/display",(req,res)=>{
+    res.render("display.ejs")
+})
+
 app.get("/tasks",(req,res)=>{
     res.render("tasks.ejs")
 })

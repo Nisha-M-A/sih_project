@@ -31,9 +31,9 @@ li {
   background:#f8fbff; 
   margin-bottom:8px; 
   display:grid; 
-  grid-template-columns: 1fr auto; /* text grows, buttons aligned right */
-  align-items:center; /* vertical alignment */
-  gap:10px; /* space between text and buttons */
+  grid-template-columns: 1fr auto;
+  align-items:center;
+  gap:10px;
   border:1px solid rgba(11,99,216,0.06); 
 }
 
@@ -50,13 +50,12 @@ button {
   justify-content:center;
 }
 
-/* Bigger tick and cancel buttons with spacing */
 button.complete, button.delete { 
   padding:10px 14px;   
   font-size:16px;      
 }
 
-li div { display:flex; gap:8px; } /* ensures buttons have consistent spacing */
+li div { display:flex; gap:8px; }
 
 button.complete { background:var(--accent); color:#fff; }
 button.delete { background:#f87171; color:#fff; }
@@ -66,8 +65,8 @@ input[type="text"] { padding:8px 10px; border-radius:var(--radius); border:1px s
 .meta { font-size:13px; color:var(--muted); margin-bottom:12px; }
 
 .home-btn {
-  text-align: left; /* Aligns button to the left */
-  margin-bottom: 16px; /* Space below button */
+  text-align: left;
+  margin-bottom: 16px;
 }
 
 .home-btn button {
@@ -82,16 +81,15 @@ input[type="text"] { padding:8px 10px; border-radius:var(--radius); border:1px s
 }
 
 .home-btn button:hover {
-  background: #094ea1; /* Slightly darker on hover */
+  background: #094ea1;
 }
-
 </style>
 </head>
 <body>
 
 <div class="container">
 
-    <div class="home-btn">
+  <div class="home-btn">
     <form method="get" action="/">
       <button>HOME PAGE</button>
     </form>
@@ -102,7 +100,7 @@ input[type="text"] { padding:8px 10px; border-radius:var(--radius); border:1px s
     <p class="meta">Tasks are automatically loaded from your survey recommendations. You can also add your own tasks.</p>
     
     <ul id="todoList"></ul>
-    
+
     <div class="actions">
       <input type="text" id="newTaskInput" placeholder="Add a new task...">
       <button id="addTaskBtn">Add</button>
@@ -141,16 +139,25 @@ function createTaskItem(taskTitle, taskDesc) {
   return li;
 }
 
-// Load tasks from survey JSON object
-function loadTasksFromJSON(json) {
+// Predefined tasks
+const predefinedTasks = [
+  "Join an OS study project",
+  "Implement a Round-Robin scheduler simulator",
+  "Take a medium-to-hard project",
+  "Pick a guided project and implement it",
+  "Explore scheduling trade-offs",
+  "Visualize page tables",
+  "Deadlock scenarios & prevention"
+];
+
+// Load predefined tasks
+window.addEventListener('DOMContentLoaded', () => {
   const todoList = document.getElementById('todoList');
-  if (json.recommendations && Array.isArray(json.recommendations)) {
-    json.recommendations.forEach(task => {
-      const li = createTaskItem(task.title, task.desc);
-      todoList.appendChild(li);
-    });
-  }
-}
+  predefinedTasks.forEach(task => {
+    const li = createTaskItem(task, "");
+    todoList.appendChild(li);
+  });
+});
 
 // Add new manual task
 document.getElementById('addTaskBtn').addEventListener('click', () => {
@@ -174,21 +181,18 @@ document.getElementById('jsonFile').addEventListener('change', (e) => {
   reader.onload = (ev) => {
     try {
       const json = JSON.parse(ev.target.result);
-      loadTasksFromJSON(json);
+      if (json.recommendations && Array.isArray(json.recommendations)) {
+        json.recommendations.forEach(task => {
+          const li = createTaskItem(task.title, task.desc);
+          document.getElementById('todoList').appendChild(li);
+        });
+      }
     } catch(err) {
       alert('Invalid JSON file');
     }
   };
   reader.readAsText(file);
 });
-
-// Optionally: auto-load from localStorage if survey saved there
-if(localStorage.getItem('surveyJSON')) {
-  try {
-    const savedJSON = JSON.parse(localStorage.getItem('surveyJSON'));
-    loadTasksFromJSON(savedJSON);
-  } catch(e){ console.error(e); }
-}
 </script>
 
 </body>
