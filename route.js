@@ -33,6 +33,10 @@ app.get("/face_recognition",(req,res)=>{
     res.render("face_recognition.ejs")
 })
 
+app.get("/face_recognition/recognition_successful", (req, res) => {
+    res.render("recognition_successful.ejs");
+});
+
 app.listen(port, () => {
     console.log(`app listening on port ${port}`)
 })

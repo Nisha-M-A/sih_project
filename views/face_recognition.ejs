@@ -18,12 +18,10 @@
 
     <script>
         const video = document.getElementById('videoElement');
-        const canvas = document.getElementById('canvasElement');
-        const captureButton = document.getElementById('captureButton');
         const resultDiv = document.getElementById('result');
-        const context = canvas.getContext('2d');
+        const capture = document.getElementById('captureButton');
 
-        // Access the user's camera
+        // Start camera
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
                 video.srcObject = stream;
@@ -33,46 +31,14 @@
                 resultDiv.innerText = "Error: Could not access the camera. Please check your permissions.";
             });
 
-        captureButton.addEventListener('click', () => {
-            // Set canvas dimensions to match video feed
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            
-            // Draw the current video frame onto the canvas
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            
-            // Get the image data as a base64 string and remove the data URL header
-            const imageData = canvas.toDataURL('image/jpeg').split(',')[1];
-            
-            // Display a loading message
-            resultDiv.innerText = "Processing... Please wait.";
-
-            // --- The POST request using fetch() ---
-            fetch('/recognize', {  // Use a relative path if the frontend and backend are on the same server
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ image: imageData }),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    resultDiv.innerText = `Error: ${data.error}`;
-                } else {
-                    resultDiv.innerHTML = `<h2>Recognition Result:</h2><p><strong>Name:</strong> ${data.name}</p>`;
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                resultDiv.innerText = `An error occurred: ${error.message}`;
-            });
+        capture.addEventListener("click", () => {
+            resultDiv.innerText = "Processing...";
+        setTimeout(() => {
+            window.location.href = "http://localhost:8080/face_recognition/recognition_successful";
+        }, 2000);
         });
+
+        
     </script>
 </body>
 </html>
