@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List with Actions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* Home button */
+    .home-btn {
+      background: #0b63d8;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-btn:hover {
+      background: #094fab;
+    }
+
+    h1 {
+      color: #0b63d8;
+      margin-top: 60px; /* leave space for home button */
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #fff;
+      margin-bottom: 12px;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .buttons {
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 8px 14px;
+      margin-right: 8px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button.allow {
+      background: #16a34a;
+      color: #fff;
+    }
+
+    button.deny {
+      background: #dc2626;
+      color: #fff;
+    }
+
+    button.modify {
+      background: #0b63d8;
+      color: #fff;
+    }
+
+    button.allow-all {
+      background: #f59e0b;
+      color: #fff;
+      margin-top: 20px;
+      padding: 10px 20px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    /* Large input box for modify */
+    .edit-box {
+      width: 95%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Home Button -->
+  <button class="home-btn" onclick="window.location.href='/'">HOME</button>
+
+  <!-- Everything wrapped inside mainContent -->
+  <div id="mainContent">
+    <h1>Name: Sahaj</h1>
+    <h2>Tasks</h2>
+
+    <ul id="taskList">
+      <li>
+        <span>Join an OS study project</span>
+        <div class="buttons">
+          <button class="allow">Allow</button>
+          <button class="deny">Deny</button>
+          <button class="modify">Modify</button>
+        </div>
+      </li>
+      <li>
+        <span>Implement a Round-Robin scheduler simulator</span>
+        <div class="buttons">
+          <button class="allow">Allow</button>
+          <button class="deny">Deny</button>
+          <button class="modify">Modify</button>
+        </div>
+      </li>
+      <li>
+        <span>Take a medium-to-hard project</span>
+        <div class="buttons">
+          <button class="allow">Allow</button>
+          <button class="deny">Deny</button>
+          <button class="modify">Modify</button>
+        </div>
+      </li>
+      <li>
+        <span>Pick a guided project and implement it</span>
+        <div class="buttons">
+          <button class="allow">Allow</button>
+          <button class="deny">Deny</button>
+          <button class="modify">Modify</button>
+        </div>
+      </li>
+      <li>
+        <span>Explore scheduling trade-offs</span>
+        <div class="buttons">
+          <button class="allow">Allow</button>
+          <button class="deny">Deny</button>
+          <button class="modify">Modify</button>
+        </div>
+      </li>
+      <li>
+        <span>Visualize page tables</span>
+        <div class="buttons">
+          <button class="allow">Allow</button>
+          <button class="deny">Deny</button>
+          <button class="modify">Modify</button>
+        </div>
+      </li>
+      <li>
+        <span>Deadlock scenarios & prevention</span>
+        <div class="buttons">
+          <button class="allow">Allow</button>
+          <button class="deny">Deny</button>
+          <button class="modify">Modify</button>
+        </div>
+      </li>
+    </ul>
+
+    <button id="allowAllBtn" class="allow-all">Allow All</button>
+  </div>
+
+  <script>
+    const taskList = document.getElementById("taskList");
+    const allowAllBtn = document.getElementById("allowAllBtn");
+    const mainContent = document.getElementById("mainContent");
+
+    // Event delegation for task buttons
+    taskList.addEventListener("click", (e) => {
+      if (e.target.classList.contains("allow") || e.target.classList.contains("deny")) {
+        e.target.closest("li").remove();
+      } 
+      else if (e.target.classList.contains("modify")) {
+        const li = e.target.closest("li");
+        const span = li.querySelector("span");
+        const currentText = span.textContent;
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = currentText;
+        input.className = "edit-box";
+
+        span.replaceWith(input);
+        input.focus();
+
+        input.addEventListener("blur", () => saveChanges(input, li));
+        input.addEventListener("keypress", (event) => {
+          if (event.key === "Enter") saveChanges(input, li);
+        });
+      }
+    });
+
+    function saveChanges(input, li) {
+      const newSpan = document.createElement("span");
+      newSpan.textContent = input.value;
+      input.replaceWith(newSpan);
+    }
+
+    // Allow All button → clears headings + list + button itself
+    allowAllBtn.addEventListener("click", () => {
+      mainContent.innerHTML = "";
+    });
+  </script>
+</body>
+</html>

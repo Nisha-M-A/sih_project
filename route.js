@@ -37,6 +37,10 @@ app.get("/suggestions/survey/submitted",(req,res)=>{
     res.render("counsellor.ejs")
 })
 
+app.get("/counsellor",(req,res)=>{
+    res.render("counsellor_student.ejs")
+})
+
 app.get("/qr",(req,res)=>{
     res.render("qr_code.ejs")
 })
