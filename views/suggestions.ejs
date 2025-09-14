@@ -31,7 +31,7 @@
       font-size: 20px;
       font-weight: 600;
       color: #111827;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
 
     form {
@@ -85,21 +85,28 @@
       border-radius: var(--radius);
       padding: 28px;
       box-shadow: 0 8px 22px rgba(9,30,66,0.06);
+      text-align: center; /* center all content inside */
+    }
+
+    /* Center input and button together */
+    .input-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
     }
   </style>
 </head>
 <body>
   <div class="container">
 
-    <!-- <form method="get" action="/">
-      <button>HOME PAGE</button>
-    </form> -->
-
     <div class="card">
       <h1>Enter your favorite task for personalized suggestions</h1>
 
-      <input type="text" placeholder="Type your favorite task...">
-      <button class="submit" type="button">Submit</button>
+      <div class="input-group">
+        <input type="text" placeholder="Type your favorite task...">
+        <button class="submit" type="button">Submit</button>
+      </div>
 
       <p></p>
     </div>

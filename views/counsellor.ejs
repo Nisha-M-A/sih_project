@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey Submitted</title>
+  <style>
+    :root {
+      --bg:#f4f7fb;   /* survey background */
+      --card:#fff;
+      --accent:#0b63d8;
+      --success:#16a34a;
+      --muted:#6b7280;
+      --radius:12px;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--bg);
+      color: #0b1220;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 650px;
+      padding: 20px;
+    }
+
+    .home-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    button {
+      background: var(--accent);
+      color: #fff;
+      border: 0;
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #094fae;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: 0 8px 22px rgba(9,30,66,0.06);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: var(--success);
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 15px;
+      color: var(--muted);
+      margin: 8px 0;
+    }
+
+    .checkmark {
+      font-size: 48px;
+      color: var(--success);
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="home-btn">
+    <form method="get" action="/">
+      <button>HOME PAGE</button>
+    </form>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <div class="checkmark">✔</div>
+      <h1>Survey Submitted Successfully</h1>
+      <p>Your survey has been submitted.</p>
+      <p>A student counselor will review your responses and provide feedback or suggest additional tasks.</p>
+      <p>You may now close this page or return to the home page for more options.</p>
+    </div>
+  </div>
+</body>
+</html>
