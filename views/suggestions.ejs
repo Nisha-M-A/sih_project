@@ -5,39 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Favorite Task Suggestion</title>
   <style>
+    /* ================= Root Variables ================= */
     :root {
-      --bg:#f4f7fb;   /* same as survey */
-      --card:#fff;
-      --accent:#0b63d8;
-      --muted:#6b7280;
-      --radius:12px;
-      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      --bg: #f4f7fb;        /* survey background */
+      --card: #fff;         /* card background */
+      --accent: #0b63d8;    /* primary accent color */
+      --muted: #6b7280;     /* muted text */
+      --radius: 12px;       /* border radius */
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
     }
 
+    /* ================= Base Styles ================= */
     body {
       margin: 0;
       background: var(--bg);
       color: #0b1220;
-      padding: 28px;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: 0 auto;
+      display: flex;
+      justify-content: center;   /* center horizontally */
+      align-items: center;       /* center vertically */
+      min-height: 100vh;         /* full screen height */
     }
 
     h1 {
       margin-top: 0;
+      margin-bottom: 20px;
       font-size: 20px;
       font-weight: 600;
-      color: #111827;
-      margin-bottom: 24px;
+      text-align: center;
+      color: var(--accent); /* blue heading */
     }
 
-    form {
-      margin-bottom: 24px;
+    .desc {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--muted);  /* grey text */
     }
 
+    /* ================= Layout ================= */
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 32px; /* spacing between cards */
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 8px 22px rgba(9,30,66,0.06);
+      text-align: center; /* center all content */
+    }
+
+    /* ================= Form & Inputs ================= */
+    .input-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    input[type="text"] {
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      border: 1px solid #d1d5db;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(11,99,216,0.15);
+    }
+
+    /* ================= Buttons ================= */
     button {
       background: var(--accent);
       color: #fff;
@@ -58,63 +100,31 @@
       color: var(--accent);
       border: 1px solid rgba(11,99,216,0.2);
     }
-
-    input[type="text"] {
-      padding: 10px 14px;
-      border-radius: var(--radius);
-      border: 1px solid #d1d5db;
-      font-size: 14px;
-      outline: none;
-      margin-right: 8px;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    input[type="text"]:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(11,99,216,0.15);
-    }
-
-    p {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: 0 8px 22px rgba(9,30,66,0.06);
-      text-align: center; /* center all content inside */
-    }
-
-    /* Center input and button together */
-    .input-group {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
   </style>
 </head>
 <body>
-  <div class="container">
-
+  <div class="wrapper">
+    <!-- Student Portal -->
     <div class="card">
-      <h1>Enter your favorite task for personalized suggestions</h1>
-
+      <h1>Student Portal</h1>
       <div class="input-group">
         <input type="text" placeholder="Type your favorite task...">
         <button class="submit" type="button">Submit</button>
       </div>
+      <p class="desc">Enter your favorite task for personalized suggestions</p>
+    </div>
 
-      <p></p>
+    <!-- Counsellor Portal -->
+    <div class="card">
+      <h1>Counsellor Portal</h1>
+      <button>Check tasks of students</button>
+      <p class="desc">Access student submissions</p>
     </div>
   </div>
 
   <script>
     let button = document.querySelector('.submit');
-    let para = document.querySelector('p');
+    let para = document.querySelector('.desc');
 
     button.addEventListener('click', () => {
       para.innerHTML = "Generating survey...";

@@ -6,9 +6,14 @@ const path = require("path")
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs") 
 app.use(express.urlencoded({ extended: true }))
+app.use('/image', express.static('image'));
 app.use("/css",express.static(path.join(__dirname, "css")))
+<<<<<<< HEAD
 app.use("/js",express.static(path.join(__dirname, "js")))
 app.use('/image', express.static('image'));
+=======
+
+>>>>>>> b638f10891e7d71632a303eea1838439c3b1d025
 app.get("/", (req, res) => {
     res.render("home_page.ejs")
 })
@@ -34,6 +39,11 @@ app.get("/suggestions/survey",(req,res)=>{
 app.get("/suggestions/survey/submitted",(req,res)=>{
     res.render("counsellor.ejs")
 })
+
+app.get("/qr",(req,res)=>{
+    res.render("qr_code.ejs")
+})
+
 
 app.get("/daily_routine",(req,res)=>{
     res.render("daily_routine.ejs")
