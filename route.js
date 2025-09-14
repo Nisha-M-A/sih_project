@@ -25,6 +25,14 @@ app.get("/suggestions",(req,res)=>{
     res.render("suggestions.ejs")
 })
 
+// app.get("/suggestions/survey",(req,res)=>{
+//     res.render("suggestions_survey.ejs")
+// })
+
+app.get("/suggestions/survey",(req,res)=>{
+    res.render("suggestions_tasks.ejs")
+})
+
 app.get("/daily_routine",(req,res)=>{
     res.render("daily_routine.ejs")
 })

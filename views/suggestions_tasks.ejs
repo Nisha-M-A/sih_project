@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OS Survey — Personalized Tasks</title>
+  <style>
+    :root{
+      --bg:#f4f7fb; --card:#fff; --accent:#0b63d8; --muted:#6b7280;
+      --radius:12px; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    }
+    body{ margin:0; background:var(--bg); color:#0b1220; padding:28px; }
+    .container{ max-width:980px; margin:0 auto; }
+    h1{ margin:0 0 12px 0; font-size:20px; }
+    .card{ background:var(--card); border-radius:var(--radius); padding:18px; box-shadow:0 8px 22px rgba(9,30,66,0.06); }
+    .meta{ color:var(--muted); font-size:13px; margin-bottom:12px; }
+    .options{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; }
+    .opt{ background:#f8fafc; padding:8px 10px; border-radius:8px; display:flex; align-items:center; gap:8px; cursor:pointer; border:1px solid transparent; }
+    .opt input{ transform:scale(1.06); margin-right:6px; }
+    .q{ padding:10px 0; border-bottom:1px dashed #eef2f7; }
+    .q:last-child{ border-bottom:0; }
+    .actions{ display:flex; gap:10px; margin-top:14px; align-items:center; }
+    button{ background:var(--accent); color:#fff; border:0; padding:10px 14px; border-radius:10px; font-weight:600; cursor:pointer; }
+    button.ghost{ background:transparent; color:var(--accent); border:1px solid rgba(11,99,216,0.12); }
+    #recommendations{ margin-top:14px; display:none; }
+    .task{ padding:10px; border-radius:10px; background:#f8fbff; margin-bottom:8px; border:1px solid rgba(11,99,216,0.06); }
+    .task h4{ margin:0 0 6px 0; font-size:15px; }
+    .task p{ margin:0; color:var(--muted); font-size:13px; }
+    pre{ background:#0f172a; color:#e6eef8; padding:12px; border-radius:8px; overflow:auto; margin-top:8px; }
+    @media (max-width:520px){ .options{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Operating Systems — Student Survey & Recommended Tasks</h1>
+      <p class="meta">Fill the survey and get a tailored list of tasks you can do next based on your answers.</p>
+    </header>
+
+    <!-- SURVEY (same 10 MCQs) -->
+    <form id="surveyForm" class="card" autocomplete="off">
+      <!-- Q1 -->
+      <div class="q">
+        <label class="question"><strong>1.</strong> How interested are you in studying Operating Systems (OS)?</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q1" value="Very interested" required> Very interested</label>
+          <label class="opt"><input type="radio" name="q1" value="Somewhat interested"> Somewhat interested</label>
+          <label class="opt"><input type="radio" name="q1" value="Neutral"> Neutral</label>
+          <label class="opt"><input type="radio" name="q1" value="Not interested"> Not interested</label>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q">
+        <label class="question"><strong>2.</strong> Which OS topic excites you the most?</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q2" value="Processes & Scheduling" required> Processes & Scheduling</label>
+          <label class="opt"><input type="radio" name="q2" value="Memory Management"> Memory Management</label>
+          <label class="opt"><input type="radio" name="q2" value="File Systems"> File Systems</label>
+          <label class="opt"><input type="radio" name="q2" value="Concurrency & Synchronization"> Concurrency & Synchronization</label>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q">
+        <label class="question"><strong>3.</strong> Which best describes your experience with OS concepts?</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q3" value="Took a course and practiced" required> Took a course and practiced</label>
+          <label class="opt"><input type="radio" name="q3" value="Took a course only"> Took a course only</label>
+          <label class="opt"><input type="radio" name="q3" value="Self-study/hands-on"> Self-study/hands-on</label>
+          <label class="opt"><input type="radio" name="q3" value="No prior experience"> No prior experience</label>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q">
+        <label class="question"><strong>4.</strong> Which scheduling algorithm is preemptive?</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q4" value="Round Robin" required> Round Robin</label>
+          <label class="opt"><input type="radio" name="q4" value="First Come First Serve"> First Come First Serve</label>
+          <label class="opt"><input type="radio" name="q4" value="Shortest Job First (non-preemptive)"> Shortest Job First (non-preemptive)</label>
+          <label class="opt"><input type="radio" name="q4" value="None of the above"> None of the above</label>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="q">
+        <label class="question"><strong>5.</strong> Virtual memory primarily uses which mechanism?</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q5" value="Paging" required> Paging</label>
+          <label class="opt"><input type="radio" name="q5" value="Segmentation"> Segmentation</label>
+          <label class="opt"><input type="radio" name="q5" value="Direct mapping"> Direct mapping</label>
+          <label class="opt"><input type="radio" name="q5" value="RAID"> RAID</label>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="q">
+        <label class="question"><strong>6.</strong> Which is a typical cause of deadlock?</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q6" value="Mutual exclusion" required> Mutual exclusion</label>
+          <label class="opt"><input type="radio" name="q6" value="Spooling"> Spooling</label>
+          <label class="opt"><input type="radio" name="q6" value="Paging"> Paging</label>
+          <label class="opt"><input type="radio" name="q6" value="Context switching"> Context switching</label>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="q">
+        <label class="question"><strong>7.</strong> A context switch occurs when:</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q7" value="CPU switches from one process to another" required> CPU switches from one process to another</label>
+          <label class="opt"><input type="radio" name="q7" value="Memory is swapped to disk"> Memory is swapped to disk</label>
+          <label class="opt"><input type="radio" name="q7" value="I/O completes"> I/O completes</label>
+          <label class="opt"><input type="radio" name="q7" value="File system is mounted"> File system is mounted</label>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="q">
+        <label class="question"><strong>8.</strong> Which system component directly interacts with hardware?</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q8" value="Kernel" required> Kernel</label>
+          <label class="opt"><input type="radio" name="q8" value="Shell"> Shell</label>
+          <label class="opt"><input type="radio" name="q8" value="User program"> User program</label>
+          <label class="opt"><input type="radio" name="q8" value="Compiler"> Compiler</label>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="q">
+        <label class="question"><strong>9.</strong> Which file access method is best for random access?</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q9" value="Indexed access" required> Indexed access</label>
+          <label class="opt"><input type="radio" name="q9" value="Sequential access"> Sequential access</label>
+          <label class="opt"><input type="radio" name="q9" value="Stream access"> Stream access</label>
+          <label class="opt"><input type="radio" name="q9" value="Append-only"> Append-only</label>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="q">
+        <label class="question"><strong>10.</strong> Would you be interested in building small OS-related projects (e.g., simple scheduler, memory manager) as assignments?</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q10" value="Yes, definitely" required> Yes, definitely</label>
+          <label class="opt"><input type="radio" name="q10" value="Maybe, with guidance"> Maybe, with guidance</label>
+          <label class="opt"><input type="radio" name="q10" value="Not sure"> Not sure</label>
+          <label class="opt"><input type="radio" name="q10" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Get Recommended Tasks</button>
+        <button type="button" id="resetBtn" class="ghost">Clear answers</button>
+        <div style="margin-left:auto; color:var(--muted); font-size:13px">Recommendations are generated locally in your browser.</div>
+      </div>
+
+      <!-- Recommendations -->
+      <div id="recommendations" aria-live="polite"></div>
+
+      <!-- JSON output card will be injected here -->
+      <div id="jsonCard" style="display:none;"></div>
+    </form>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('surveyForm');
+      const recDiv = document.getElementById('recommendations');
+      const jsonCard = document.getElementById('jsonCard');
+      const resetBtn = document.getElementById('resetBtn');
+
+      // Read answers to plain object
+      function readAnswers() {
+        const data = {};
+        const fd = new FormData(form);
+        for (const [k,v] of fd.entries()) data[k] = v;
+        return data;
+      }
+
+      // Core mapping: produce a list of recommendation objects {title, desc}
+      function getRecommendations(ans) {
+        const recs = [];
+
+        // 1. Interest level suggestions
+        if (ans.q1 === 'Very interested') {
+          recs.push({
+            title: 'Join an OS study project',
+            desc: 'Form or join a small study group to implement mini-projects (scheduler, shell). Learning by doing accelerates understanding.'
+          });
+        } else if (ans.q1 === 'Somewhat interested') {
+          recs.push({
+            title: 'Follow a guided OS path',
+            desc: 'Try a 4–6 week guided plan: basics → processes → memory → concurrency. Use short projects after each topic.'
+          });
+        } else if (ans.q1 === 'Neutral' || ans.q1 === 'Not interested') {
+          recs.push({
+            title: 'Try interactive OS tutorials',
+            desc: 'Start with interactive visualizations and short reads (process scheduling animators, memory paging demos). Low commitment.'
+          });
+        }
+
+        // 2. Topic-specific tasks
+        if (ans.q2 === 'Processes & Scheduling') {
+          recs.push({
+            title: 'Implement a Round-Robin scheduler simulator',
+            desc: 'Build a small program (Python/JS) that simulates processes and visualizes context switches and turnaround time.'
+          });
+        } else if (ans.q2 === 'Memory Management') {
+          recs.push({
+            title: 'Paging & replacement simulator',
+            desc: 'Create a simulator to test FIFO, LRU, and Optimal page replacement algorithms and compare page-fault rates.'
+          });
+        } else if (ans.q2 === 'File Systems') {
+          recs.push({
+            title: 'Build a tiny file-allocation simulator',
+            desc: 'Simulate indexed/linked/sequential allocation and implement basic file operations (create, delete, read).'
+          });
+        } else if (ans.q2 === 'Concurrency & Synchronization') {
+          recs.push({
+            title: 'Concurrency exercises with threads',
+            desc: 'Solve producer-consumer and readers-writers problems using threads and mutexes (or async primitives).'
+          });
+        }
+
+        // 3. Experience-based difficulty selection
+        if (ans.q3 === 'Took a course and practiced' || ans.q3 === 'Self-study/hands-on') {
+          recs.push({
+            title: 'Take a medium-to-hard project',
+            desc: 'Implement a simple user-level thread library or a basic memory manager. These are great next steps.'
+          });
+        } else if (ans.q3 === 'Took a course only') {
+          recs.push({
+            title: 'Hands-on mini-challenges',
+            desc: 'Start with small coding tasks (scheduling simulator, simple locks) to convert theory into practice.'
+          });
+        } else if (ans.q3 === 'No prior experience') {
+          recs.push({
+            title: 'Beginner-friendly tasks',
+            desc: 'Follow introductory tutorials on processes and memory, and try interactive quizzes before coding projects.'
+          });
+        }
+
+        // 4. Hands-on willingness (q10) filters / suggestions
+        if (ans.q10 === 'Yes, definitely') {
+          recs.push({
+            title: 'Pick a guided project and implement it',
+            desc: 'Examples: a tiny shell (command parser + exec), basic scheduler simulator, or a simple page-replacement visualizer.'
+          });
+        } else if (ans.q10 === 'Maybe, with guidance') {
+          recs.push({
+            title: 'Try scaffolded projects',
+            desc: 'Use templates or starter repos where core structure is provided — implement a few functions and run tests.'
+          });
+        } else if (ans.q10 === 'Not sure' || ans.q10 === 'No') {
+          recs.push({
+            title: 'Low-effort learning tasks',
+            desc: 'Read bite-sized articles, watch demo videos, or try playgrounds that let you tweak parameters and see results.'
+          });
+        }
+
+        // 5. Check for specific concept weaknesses / opportunities from Q4-Q9
+        // e.g., if they answered Round Robin for q4 correctly, suggest advanced scheduling; if not, suggest basics
+        if (ans.q4 && ans.q4.includes('Round Robin')) {
+          recs.push({
+            title: 'Explore scheduling trade-offs',
+            desc: 'Compare RR vs SJF vs Priority scheduling and measure average waiting/turnaround times on sample workloads.'
+          });
+        } else {
+          recs.push({
+            title: 'Review preemptive vs non-preemptive scheduling',
+            desc: 'Read a short note and try examples to see when preemption affects fairness and response time.'
+          });
+        }
+
+        // memory question q5
+        if (ans.q5 === 'Paging') {
+          recs.push({
+            title: 'Visualize page tables',
+            desc: 'Construct sample logical-to-physical translations and trace address mapping through page tables and TLBs.'
+          });
+        } else {
+          recs.push({
+            title: 'Intro to virtual memory',
+            desc: 'Learn the difference between paging and segmentation with examples; try a small mapping exercise.'
+          });
+        }
+
+        // concurrency / deadlock from q6
+        if (ans.q6 === 'Mutual exclusion') {
+          recs.push({
+            title: 'Deadlock scenarios & prevention',
+            desc: 'Study the four necessary conditions and implement strategies: ordering, resource allocation graph, or detection & recovery.'
+          });
+        }
+
+        // prioritize unique recommendations (remove duplicates by title)
+        const seen = new Set();
+        const deduped = recs.filter(r => {
+          if (seen.has(r.title)) return false;
+          seen.add(r.title); return true;
+        });
+
+        // limit to a reasonable number (e.g., top 8)
+        return deduped.slice(0, 8);
+      }
+
+      // Render recommendations on the page
+      function renderRecommendations(list) {
+        recDiv.style.display = 'block';
+        recDiv.innerHTML = '';
+        const wrapper = document.createElement('div');
+        wrapper.className = 'card';
+        const heading = document.createElement('h3');
+        heading.textContent = 'Tasks you can do based on your responses';
+        heading.style.marginTop = '0';
+        wrapper.appendChild(heading);
+
+        if (!list.length) {
+          const p = document.createElement('p');
+          p.className = 'meta';
+          p.textContent = 'No recommendations generated.';
+          wrapper.appendChild(p);
+        } else {
+          list.forEach(item => {
+            const t = document.createElement('div');
+            t.className = 'task';
+            t.innerHTML = `<h4>${escapeHtml(item.title)}</h4><p>${escapeHtml(item.desc)}</p>`;
+            wrapper.appendChild(t);
+          });
+        }
+
+        // Add quick actions: copy tasks as text and download JSON with responses + recommendations
+        const actions = document.createElement('div');
+        actions.style.display = 'flex';
+        actions.style.gap = '8px';
+        actions.style.marginTop = '8px';
+
+        const copyBtn = document.createElement('button');
+        copyBtn.textContent = 'Copy tasks';
+        copyBtn.addEventListener('click', () => {
+          const text = list.map((l,i) => `${i+1}. ${l.title} — ${l.desc}`).join('\\n\\n');
+          navigator.clipboard.writeText(text).then(() => alert('Tasks copied to clipboard'), () => alert('Could not copy'));
+        });
+
+        const dlBtn = document.createElement('button');
+        dlBtn.textContent = 'Download JSON';
+        dlBtn.className = 'ghost';
+        dlBtn.style.border = '1px solid rgba(11,99,216,0.12)'; // keep ghost look
+        dlBtn.addEventListener('click', () => {
+          const payload = {
+            responses: readAnswers(),
+            recommendations: list
+          };
+          const blob = new Blob([JSON.stringify(payload, null, 2)], {type: 'application/json'});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'os-survey-recommendations.json';
+          document.body.appendChild(a); a.click(); a.remove();
+          URL.revokeObjectURL(url);
+        });
+
+        actions.appendChild(copyBtn);
+        actions.appendChild(dlBtn);
+        wrapper.appendChild(actions);
+
+        // Show JSON block of the payload
+        const pre = document.createElement('pre');
+        const payload = { responses: readAnswers(), recommendations: list };
+        pre.textContent = JSON.stringify(payload, null, 2);
+        wrapper.appendChild(pre);
+
+        recDiv.appendChild(wrapper);
+      }
+
+      // Escape helper to avoid XSS when injecting user-answer-driven text
+      function escapeHtml(s) {
+        if (typeof s !== 'string') return s;
+        return s.replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; });
+      }
+
+      // Submit handler
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const answers = readAnswers();
+        // Basic validation already enforced by required attributes
+        const recs = getRecommendations(answers);
+        renderRecommendations(recs);
+        // Scroll to recommendations
+        recDiv.scrollIntoView({behavior:'smooth'});
+      });
+
+      resetBtn.addEventListener('click', () => {
+        if (!confirm('Clear all answers and recommendations?')) return;
+        form.reset();
+        recDiv.style.display = 'none';
+        jsonCard.style.display = 'none';
+      });
+
+      // Make sure keyboard-accessible label-clicks checked (no JS needed) - done via native inputs
+    })();
+  </script>
+</body>
+</html>

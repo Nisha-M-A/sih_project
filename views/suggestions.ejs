@@ -1,14 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=
-    , initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favorite Task Suggestion</title>
+  <style>
+    :root {
+      --bg:#f4f7fb;   /* same as survey */
+      --card:#fff;
+      --accent:#0b63d8;
+      --muted:#6b7280;
+      --radius:12px;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: #0b1220;
+      padding: 28px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 16px;
+    }
+
+    form {
+      margin-bottom: 24px;
+    }
+
+    button {
+      background: var(--accent);
+      color: #fff;
+      border: 0;
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #094fae;
+    }
+
+    button.ghost {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid rgba(11,99,216,0.2);
+    }
+
+    input[type="text"] {
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      border: 1px solid #d1d5db;
+      font-size: 14px;
+      outline: none;
+      margin-right: 8px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(11,99,216,0.15);
+    }
+
+    p {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 8px 22px rgba(9,30,66,0.06);
+    }
+  </style>
 </head>
 <body>
-    <form method="get" action="/">
-        <button>HOME PAGE</button>
-    </form>
+  <div class="container">
+
+    <!-- <form method="get" action="/">
+      <button>HOME PAGE</button>
+    </form> -->
+
+    <div class="card">
+      <h1>Enter your favorite task for personalized suggestions</h1>
+
+      <input type="text" placeholder="Type your favorite task...">
+      <button class="submit" type="button">Submit</button>
+
+      <p></p>
+    </div>
+  </div>
+
+  <script>
+    let button = document.querySelector('.submit');
+    let para = document.querySelector('p');
+
+    button.addEventListener('click', () => {
+      para.innerHTML = "Generating survey...";
+      setTimeout(() => {
+        window.location.href = "http://localhost:8080/suggestions/survey";
+      }, 5000);
+    });
+  </script>
 </body>
 </html>
