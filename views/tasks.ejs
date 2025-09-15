@@ -83,6 +83,36 @@ input[type="text"] { padding:8px 10px; border-radius:var(--radius); border:1px s
 .home-btn button:hover {
   background: #094ea1;
 }
+
+.actions {
+  display: flex; 
+  margin-top: 12px; 
+  gap: 10px;
+}
+
+.actions input[type="text"] {
+  flex: 1;
+  padding: 14px 16px;        /* bigger input */
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  font-size: 18px;            /* larger text */
+}
+
+.actions button {
+  flex: none;
+  padding: 14px 20px;         /* bigger buttons */
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.actions button:hover {
+  opacity: 0.9;
+}
+
 </style>
 </head>
 <body>
@@ -107,10 +137,6 @@ input[type="text"] { padding:8px 10px; border-radius:var(--radius); border:1px s
       <button id="clearCompletedBtn">Clear</button>
     </div>
 
-    <div style="margin-top:12px;">
-      <label for="jsonFile">Or upload your survey :</label>
-      <input type="file" id="jsonFile" accept=".json">
-    </div>
   </div>
 </div>
 
@@ -193,6 +219,8 @@ document.getElementById('jsonFile').addEventListener('change', (e) => {
   };
   reader.readAsText(file);
 });
+
+
 </script>
 
 </body>
