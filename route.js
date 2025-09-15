@@ -25,10 +25,6 @@ app.get("/suggestions",(req,res)=>{
     res.render("suggestions.ejs")
 })
 
-// app.get("/suggestions/survey",(req,res)=>{
-//     res.render("suggestions_survey.ejs")
-// })
-
 app.get("/suggestions/survey",(req,res)=>{
     res.render("suggestions_tasks.ejs")
 })
@@ -70,6 +66,12 @@ app.get("/face_recognition",(req,res)=>{
 app.get("/face_recognition/recognition_successful", (req, res) => {
     res.render("recognition_successful.ejs");
 });
+
+app.get("/fake", (req, res) => {
+    res.render("home_page_2.ejs");
+});
+
+
 
 app.get("/table_created", (req, res) => {
     res.render("time_table_submitted.ejs");
