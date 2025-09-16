@@ -16,7 +16,7 @@
 
 body {
   margin:0;
-  height:100vh;
+  min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -26,8 +26,11 @@ body {
 
 .container {
   width:100%;
-  max-width:500px;
+  max-width:900px;
   padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:20px; /* spacing between cards */
 }
 
 .card {
@@ -40,44 +43,63 @@ body {
 
 h1 {
   font-size:20px;
-  color:black;
-  margin-bottom:15px;
+  color: var(--accent); /* blue headings */
+  margin-bottom:20px;
 }
 
 form {
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 button {
   background: var(--accent);
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border-radius: var(--radius);
   font-weight: 600;
   cursor: pointer;
   font-size: 16px;
   transition: background 0.2s;
+  width: 100%;
+  max-width: 280px; /* same size buttons */
 }
 
 button:hover {
   background: #094fae;
+}
+
+.desc {
+  font-size: 12px;
+  color: var(--muted); /* tiny grey letters */
+  margin-bottom: 16px;
 }
 </style>
 </head>
 <body>
 
 <div class="container">
+  <!-- Teacher Portal Card -->
   <div class="card">
-    <h1>For Teachers:</h1>
+    <h1>Teacher Portal</h1>
     <form action="/time_table" method="get">
       <button type="submit">Create Time Table</button>
     </form>
+    <p class="desc">Generate and manage class schedules</p>
+  </div>
 
-    <h1>For Students:</h1>
+  <!-- Student Portal Card -->
+  <div class="card">
+    <h1>Student Portal</h1>
+    <form action="/display" method="get">
+      <button type="submit">Display Time Table</button>
+    </form>
+    <p class="desc">View your personalized class schedule</p>
+
     <form action="/tasks">
       <button type="submit">View Tasks</button>
     </form>
+    <p class="desc">Check your pending and completed tasks</p>
   </div>
 </div>
 
