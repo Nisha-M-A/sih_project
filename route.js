@@ -8,12 +8,12 @@ app.set("view engine", "ejs")
 app.use(express.urlencoded({ extended: true }))
 app.use('/image', express.static('image'));
 app.use("/css",express.static(path.join(__dirname, "css")))
-<<<<<<< HEAD
+// <<<<<<< HEAD
 app.use("/js",express.static(path.join(__dirname, "js")))
 app.use('/image', express.static('image'));
-=======
+// =======
 
->>>>>>> b638f10891e7d71632a303eea1838439c3b1d025
+// >>>>>>> b638f10891e7d71632a303eea1838439c3b1d025
 app.get("/", (req, res) => {
     res.render("home_page.ejs")
 })
