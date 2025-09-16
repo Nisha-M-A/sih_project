@@ -39,7 +39,6 @@
     flex-direction: column;
     align-items: center;
     margin: 30px 0;
-<<<<<<< HEAD
 }
 .button_row1 {
     display: flex;
@@ -47,50 +46,24 @@
     gap: 110px;
     margin: 15px 0;
 }
-=======
- }
-
- /* each row holds two cards side by side */
- .button_row1 {
-    display: flex;
-    justify-content: center;
-    gap: 90px;
-     /* space between cards */
-    margin: 15px 0;
- }
->>>>>>> 225972254446b0a52f45da1236b66da404535ee9
 .button_row1 form p{
     font-size: 1rem;
     margin-top:0px;
     color: rgb(67, 65, 65);
-<<<<<<< HEAD
     font-family: Arial, Helvetica, sans-serif;
 }
 
-=======
-}
- /* make the buttons look like feature cards */
->>>>>>> 225972254446b0a52f45da1236b66da404535ee9
  .button_row1 form button {
     min-width: 320px;
     height: 200px;
     padding: 20px;
     border-bottom: 10px solid #003366;
-<<<<<<< HEAD
     border-radius: 12px;
     background: #fff;
-=======
-     /* thick border */
-    border-radius: 12px;
-     /* smooth corners */
-    background: #fff;
-     /* card bg */
->>>>>>> 225972254446b0a52f45da1236b66da404535ee9
     font-size: 18px;
     font-weight: 600;
     color: black;
     cursor: pointer;
-<<<<<<< HEAD
         font-family: Arial, Helvetica, sans-serif;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -106,18 +79,6 @@
     color: black;
     transition: color 0.3s ease;
 }
-=======
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
- /* hover effect */
-.button_row1 form button:hover {
-     transform: translateY(-5px);
-     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-     background: #f9f9f9;
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
- }
->>>>>>> 225972254446b0a52f45da1236b66da404535ee9
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -139,16 +100,8 @@
 }
 .logo {
     height: 50px;
-<<<<<<< HEAD
     width: 100px;
     border-radius: 6px;
-=======
-    /* fixed height for consistency */
-    width: 100px;
-    /* keeps aspect ratio */
-    border-radius: 6px;
-    /* slight rounding for a modern feel */
->>>>>>> 225972254446b0a52f45da1236b66da404535ee9
     object-fit: contain;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
