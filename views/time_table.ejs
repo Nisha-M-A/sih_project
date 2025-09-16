@@ -48,15 +48,7 @@
 
     td.editable:hover {
       background-color: #f0f8ff;
-      cursor: pointer;
-    }
-
-    input {
-      width: 90%;
-      padding: 5px;
-      border: 1px solid #0b63d8;
-      border-radius: 5px;
-      text-align: center;
+      cursor: text;
     }
 
     .btn {
@@ -126,19 +118,27 @@
   const endHour = 17;
   const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
+  // Format 24-hour -> 12-hour with AM/PM
+  function formatHour(hour) {
+    let period = hour >= 12 ? "PM" : "AM";
+    let displayHour = hour % 12;
+    displayHour = displayHour === 0 ? 12 : displayHour; 
+    return `${displayHour}:00 ${period}`;
+  }
+
   for (let hour = startHour; hour <= endHour; hour++) {
     const row = document.createElement("tr");
 
     // Time column
     const timeCell = document.createElement("td");
-    timeCell.textContent = `${hour}:00 - ${hour + 1}:00`;
+    timeCell.textContent = `${formatHour(hour)} - ${formatHour(hour + 1)}`;
     row.appendChild(timeCell);
 
-    // Day cells
+    // Day cells (editable)
     for (let j = 0; j < 6; j++) {
       const cell = document.createElement("td");
       cell.classList.add("editable");
-
+      cell.setAttribute("contenteditable", "true"); // editable cells
       cell.addEventListener("click", function() {
         selectedCell = cell;
       });
@@ -152,35 +152,10 @@
   function addFreeSlot() {
     if (selectedCell) {
       selectedCell.innerHTML = "<span class='free-text'>Free Slot</span>";
-    } else {
-      alert("Click on a cell first to add a Free Slot.");
-    }
-  }
-
-  // Submit → Save to localStorage → Redirect Home Page
-  function submitTasks() {
-    let notifications = [];
-    const rows = tableBody.querySelectorAll("tr");
-
-    rows.forEach((row) => {
-      const time = row.querySelector("td").textContent;
-      const cells = row.querySelectorAll("td.editable");
-
-      cells.forEach((cell, colIndex) => {
-        if (cell.textContent.trim() === "Free Slot") {
-          notifications.push(`${days[colIndex]} ${time}, there is a free period`);
-        }
-      });
-    });
-
-    if (notifications.length > 0) {
-      localStorage.setItem("freeSlotNotifications", JSON.stringify(notifications));
-      window.location.href = "http://localhost:8080/"; // go to homepage
-    } else {
-    //   alert("No Free Slots added.");
     }
   }
 </script>
 
 </body>
 </html>
+
